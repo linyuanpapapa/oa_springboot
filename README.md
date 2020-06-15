@@ -1,2 +1,2 @@
 # oa_springboot
-将上一项目改成springboot版本
+将本仓库的SSM项目进化成springboot，并集成swagger进行接口的测试。
