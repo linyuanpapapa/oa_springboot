@@ -1,12 +1,12 @@
 package com.yuan.oa_dao.dao;
 
-import com.yuan.oa_dao.entity.dealRecord;
+import com.yuan.oa_dao.entity.DealRecord;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository("dealRecordDao")
 public interface DealRecordDao {
-    void insert(dealRecord dealRecord);
-    List<dealRecord> selectByClaimVoucher(int cvid);
+    void insert(DealRecord dealRecord);
+    List<DealRecord> selectByClaimVoucher(int cvid);
 }

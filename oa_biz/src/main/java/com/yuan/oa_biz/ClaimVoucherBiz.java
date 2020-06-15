@@ -1,24 +1,24 @@
 package com.yuan.oa_biz;
 
-import com.yuan.oa_dao.entity.claimVoucher;
-import com.yuan.oa_dao.entity.claimVoucherItems;
-import com.yuan.oa_dao.entity.dealRecord;
+import com.yuan.oa_dao.entity.ClaimVoucher;
+import com.yuan.oa_dao.entity.ClaimVoucherItems;
+import com.yuan.oa_dao.entity.DealRecord;
 
 import java.util.List;
 
 public interface ClaimVoucherBiz {
 
-    void save(claimVoucher claimVoucher, List<claimVoucherItems> items);
+    void save(ClaimVoucher claimVoucher, List<ClaimVoucherItems> items);
 
-    claimVoucher get(int id);
-    List<claimVoucherItems> getItems(int cvid);
-    List<dealRecord> getRecords(int cvid);
+    ClaimVoucher get(int id);
+    List<ClaimVoucherItems> getItems(int cvid);
+    List<DealRecord> getRecords(int cvid);
 
-    List<claimVoucher> getForSelf(String sn);
-    List<claimVoucher> getForDeal(String sn);
+    List<ClaimVoucher> getForSelf(String sn);
+    List<ClaimVoucher> getForDeal(String sn);
 
-    void update(claimVoucher claimVoucher, List<claimVoucherItems> items);
+    void update(ClaimVoucher claimVoucher, List<ClaimVoucherItems> items);
 
     void submit(int id);
-    void deal(dealRecord dealRecord);
+    void deal(DealRecord dealRecord);
 }

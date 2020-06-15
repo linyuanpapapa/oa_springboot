@@ -14,6 +14,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * 启动swagger
  * configuration注解标记配置类
+ * 默认访问网址 端口号为项目端口号
+ * http://127.0.0.1:8080/swagger-ui.html
  */
 @Configuration
 @EnableSwagger2

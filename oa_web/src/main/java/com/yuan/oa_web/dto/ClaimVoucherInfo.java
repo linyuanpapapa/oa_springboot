@@ -1,27 +1,27 @@
 package com.yuan.oa_web.dto;
 
-import com.yuan.oa_dao.entity.claimVoucher;
-import com.yuan.oa_dao.entity.claimVoucherItems;
+import com.yuan.oa_dao.entity.ClaimVoucher;
+import com.yuan.oa_dao.entity.ClaimVoucherItems;
 
 import java.util.List;
 
 public class ClaimVoucherInfo {
-    private claimVoucher claimVoucher;
-    private List<claimVoucherItems> items;
+    private ClaimVoucher claimVoucher;
+    private List<ClaimVoucherItems> items;
 
-    public claimVoucher getClaimVoucher() {
+    public ClaimVoucher getClaimVoucher() {
         return claimVoucher;
     }
 
-    public void setClaimVoucher(claimVoucher claimVoucher) {
+    public void setClaimVoucher(ClaimVoucher claimVoucher) {
         this.claimVoucher = claimVoucher;
     }
 
-    public List<claimVoucherItems> getItems() {
+    public List<ClaimVoucherItems> getItems() {
         return items;
     }
 
-    public void setItems(List<claimVoucherItems> items) {
+    public void setItems(List<ClaimVoucherItems> items) {
         this.items = items;
     }
 }

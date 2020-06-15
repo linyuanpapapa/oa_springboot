@@ -1,6 +1,6 @@
 package com.yuan.oa_dao.dao;
 
-import com.yuan.oa_dao.entity.claimVoucher;
+import com.yuan.oa_dao.entity.ClaimVoucher;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.List;
 //@Repository("claimVoucherDao")
 @Mapper
 public interface ClaimVoucherDao {
-    void insert(claimVoucher claimVoucher);
-    void update(claimVoucher claimVoucher);
+    void insert(ClaimVoucher claimVoucher);
+    void update(ClaimVoucher claimVoucher);
     void delete(int id);
-    claimVoucher select(int id);
-    List<claimVoucher> selectByCreateSn(String csn);
-    List<claimVoucher> selectByNextDealSn(String ndsn);
+    ClaimVoucher select(int id);
+    List<ClaimVoucher> selectByCreateSn(String csn);
+    List<ClaimVoucher> selectByNextDealSn(String ndsn);
 }

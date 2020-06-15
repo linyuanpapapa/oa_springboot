@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yuan.oa_dao.dao.claimVoucherItemsDao">
-    <resultMap id="claimVoucherItems" type="com.yuan.oa_dao.entity.claimVoucherItems">
+<mapper namespace="com.yuan.oa_dao.dao.ClaimVoucherItemsDao">
+    <resultMap id="claimVoucherItems" type="com.yuan.oa_dao.entity.ClaimVoucherItems">
         <id property="id" column="id" javaType="Integer"/>
         <result property="claimVoucherId" column="claim_voucher_id" javaType="Integer"/>
         <result property="item" column="item" javaType="String"/>
         <result property="amount" column="amount" javaType="Double"/>
         <result property="comment" column="comment" javaType="String"/>
     </resultMap>
-    <insert id="insert" parameterType="com.yuan.oa_dao.entity.claimVoucherItems">
+    <insert id="insert" parameterType="com.yuan.oa_dao.entity.ClaimVoucherItems">
         insert into claim_voucher_item(claim_voucher_id,item,amount,comment)
         values(#{claimVoucherId},#{item},#{amount},#{comment})
     </insert>
-    <update id="update" parameterType="com.yuan.oa_dao.entity.claimVoucherItems">
+    <update id="update" parameterType="com.yuan.oa_dao.entity.ClaimVoucherItems">
         update claim_voucher_item set claim_voucher_id=#{claimVoucherId},item=#{item},amount=#{amount},comment=#{comment}
         where id=#{id}
     </update>
