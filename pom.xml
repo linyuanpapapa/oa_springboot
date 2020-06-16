@@ -25,6 +25,7 @@
     <properties>
         <java.version>1.8</java.version>
         <oa.version>0.0.1-SNAPSHOT</oa.version>
+        <mybatisplus.version>3.3.2</mybatisplus.version>
     </properties>
     <!--使用此注解进行统一的版本管理-->
     <dependencyManagement>
@@ -64,7 +65,22 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.2</version>
         </dependency>
-
+        <!--mybatis-plus依赖-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatisplus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${mybatisplus.version}</version>
+        </dependency>
+        <!--lombok依赖-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

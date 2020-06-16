@@ -1,40 +1,17 @@
 package com.yuan.oa_dao.entity;
 
-public class Department {
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Data;
+
+@Data
+public class Department extends Model<Department> {
+    private static final long serialVersionUID=1L;
+    @TableId
     private String sn;
+    @TableField("NAME")
     private String name;
     private String address;
 
-    public String getSn() {
-        return sn;
-    }
-
-    public void setSn(String sn) {
-        this.sn = sn;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Department{" +
-                "sn='" + sn + '\'' +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 }

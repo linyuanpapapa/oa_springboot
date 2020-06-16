@@ -1,10 +1,14 @@
 package com.yuan.oa_biz.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yuan.oa_biz.ClaimVoucherBiz;
 import com.yuan.oa_dao.dao.ClaimVoucherDao;
 import com.yuan.oa_dao.dao.DealRecordDao;
 import com.yuan.oa_dao.dao.EmployeeDao;
 import com.yuan.oa_dao.dao.ClaimVoucherItemsDao;
+import com.yuan.oa_dao.dto.EmployeeWithDepartment;
 import com.yuan.oa_dao.entity.ClaimVoucher;
 import com.yuan.oa_dao.entity.DealRecord;
 import com.yuan.oa_dao.entity.Employee;
@@ -18,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service("claimVoucherBiz")
-public class ClaimVoucherBizImpl implements ClaimVoucherBiz {
+public class ClaimVoucherBizImpl extends ServiceImpl<ClaimVoucherDao,ClaimVoucher> implements ClaimVoucherBiz {
 
     @Autowired
     private ClaimVoucherDao claimVoucherDao;
@@ -45,9 +49,11 @@ public class ClaimVoucherBizImpl implements ClaimVoucherBiz {
         }
     }
 
+    @Override
     public ClaimVoucher get(int id) {
-        return claimVoucherDao.select(id);
+        return claimVoucherDao.selectById(id);
     }
+
 
     public List<ClaimVoucherItems> getItems(int cvid) {
         return claimVoucherItemsDao.selectByClaimVoucher(cvid);
@@ -68,7 +74,7 @@ public class ClaimVoucherBizImpl implements ClaimVoucherBiz {
     public void update(ClaimVoucher claimVoucher, List<ClaimVoucherItems> items) {
         claimVoucher.setNextDealSn(claimVoucher.getCreateSn());
         claimVoucher.setStatus(Contant.CLAIMVOUCHER_CREATED);
-        claimVoucherDao.update(claimVoucher);
+        claimVoucherDao.update(claimVoucher,new UpdateWrapper<ClaimVoucher>().eq("id",claimVoucher.getId()));
 
         List<ClaimVoucherItems> olds = claimVoucherItemsDao.selectByClaimVoucher(claimVoucher.getId());
         for (ClaimVoucherItems old : olds) {
@@ -80,14 +86,14 @@ public class ClaimVoucherBizImpl implements ClaimVoucherBiz {
                 }
             }
             if (!isHave) {
-                claimVoucherItemsDao.delete(old.getId());
+                claimVoucherItemsDao.deleteById(old.getId());
             }
         }
             for(ClaimVoucherItems item:items){
                 item.setClaimVoucherId(claimVoucher.getId());
                 if(item.getId()!=null&&item.getId()>0){
                     System.out.println(item);
-                    claimVoucherItemsDao.update(item);
+                    claimVoucherItemsDao.update(item,new UpdateWrapper<ClaimVoucherItems>().eq("id",item.getId()));
                 }else{
                     claimVoucherItemsDao.insert(item);
                 }
@@ -95,11 +101,11 @@ public class ClaimVoucherBizImpl implements ClaimVoucherBiz {
     }
 
     public void submit(int id){
-        ClaimVoucher claimVoucher = claimVoucherDao.select(id);
-        Employee employee=employeeDao.selectOne(claimVoucher.getCreateSn());
+        ClaimVoucher claimVoucher = claimVoucherDao.selectById(id);
+        EmployeeWithDepartment employee=employeeDao.getOne(claimVoucher.getCreateSn());
         claimVoucher.setStatus(Contant.CLAIMVOUCHER_SUBMIT);
         claimVoucher.setNextDealSn(employeeDao.selectByDepartmentAndPost(employee.getDepartmentSn(), Contant.POST_FM).get(0).getSn());
-        claimVoucherDao.update(claimVoucher);
+        claimVoucherDao.update(claimVoucher,new UpdateWrapper<ClaimVoucher>().eq("id",claimVoucher.getId()));
 
         DealRecord dealRecord=new DealRecord();
         dealRecord.setClaimVoucherId(id);
@@ -112,8 +118,8 @@ public class ClaimVoucherBizImpl implements ClaimVoucherBiz {
     }
 
     public void deal(DealRecord dealRecord) {
-        ClaimVoucher claimVoucher = claimVoucherDao.select(dealRecord.getClaimVoucherId());
-        Employee employee=employeeDao.selectOne(dealRecord.getDealSn());
+        ClaimVoucher claimVoucher = claimVoucherDao.selectById(dealRecord.getClaimVoucherId());
+        EmployeeWithDepartment employee=employeeDao.getOne(dealRecord.getDealSn());
         dealRecord.setDealTime(new Date());
         if(dealRecord.getDealWay().equals(Contant.DEAL_PASS)){
             if(claimVoucher.getTotalCount()<= Contant.LIMIT_CHECK||employee.getPost().equals(Contant.POST_GM)){
@@ -144,7 +150,7 @@ public class ClaimVoucherBizImpl implements ClaimVoucherBiz {
             dealRecord.setDealResult(Contant.CLAIMVOUCHER_PAID);
         }
 
-        claimVoucherDao.update(claimVoucher);
+        claimVoucherDao.update(claimVoucher,new UpdateWrapper<ClaimVoucher>().eq("id",claimVoucher.getId()));
         dealRecordDao.insert(dealRecord);
     }
 

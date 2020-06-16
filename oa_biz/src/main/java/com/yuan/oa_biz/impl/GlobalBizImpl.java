@@ -1,8 +1,11 @@
 package com.yuan.oa_biz.impl;
 
 
+
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yuan.oa_biz.GlobalBiz;
 import com.yuan.oa_dao.dao.EmployeeDao;
+import com.yuan.oa_dao.dto.EmployeeWithDepartment;
 import com.yuan.oa_dao.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,8 +17,8 @@ public class GlobalBizImpl implements GlobalBiz {
     @Autowired
     private EmployeeDao employeeDao;
 
-    public Employee login(String sn, String password) {
-        Employee employee = employeeDao.selectOne(sn);
+    public EmployeeWithDepartment login(String sn, String password) {
+        EmployeeWithDepartment employee = employeeDao.getOne(sn);
         if(employee!=null&&employee.getPassword().equals(password)){
             return employee;
         }
@@ -23,6 +26,6 @@ public class GlobalBizImpl implements GlobalBiz {
     }
 
     public void changePassword(Employee employee) {
-        employeeDao.update(employee);
+        employeeDao.update(employee,new UpdateWrapper<>());
     }
 }

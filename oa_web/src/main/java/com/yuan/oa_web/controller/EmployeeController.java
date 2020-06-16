@@ -1,6 +1,9 @@
 package com.yuan.oa_web.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yuan.oa_biz.*;
+import com.yuan.oa_dao.dto.EmployeeWithDepartment;
 import com.yuan.oa_dao.entity.*;
 import com.yuan.oa_dao.global.Contant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,7 @@ public class EmployeeController {
 
     @GetMapping("/list")
     public String list(Map<String,Object> map){
-        map.put("list",employeeBiz.findAll());
+        map.put("list",employeeBiz.selectAll());
         return "employee_list";
     }
 
@@ -39,27 +42,31 @@ public class EmployeeController {
      */
     @PostMapping("/add")
     public String add(Employee employee){
-        employeeBiz.add(employee);
+        if(employee.getPassword()==null||employee.getPassword().length()==0){
+            employee.setPassword("000000");
+        }
+        employeeBiz.save(employee);
         return "redirect:list";
     }
 
     @GetMapping(value = "/to_update",params = "sn")
     public String to_update(String sn,Map<String,Object> map){
-        map.put("employee",employeeBiz.findOne(sn));
-        map.put("dlist",departmentBiz.findAll());
+
+        map.put("employee",employeeBiz.getOne(sn));
+        map.put("dlist",departmentBiz.list());
         map.put("plist", Contant.getPosts());
         return "employee_update";
     }
 
     @PutMapping("/update")
     public String update(Employee employee){
-        employeeBiz.edit(employee);
+        employeeBiz.update(employee,new UpdateWrapper<>());
         return "redirect:list";
     }
 
-    @DeleteMapping(value = "/remove",params = "sn")
+    @PostMapping(value = "/remove",params = "sn")
     public String remove(String sn){
-        employeeBiz.remove(sn);
+        employeeBiz.removeById(sn);
         return "redirect:list";
     }
 }

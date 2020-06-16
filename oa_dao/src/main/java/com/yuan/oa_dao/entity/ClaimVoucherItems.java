@@ -1,60 +1,20 @@
 package com.yuan.oa_dao.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+
+@Data
 public class ClaimVoucherItems {
+    private static final long serialVersionUID=1L;
+    @TableId
     private Integer id;
+
+    @TableField("claimvoucher_id")
     private Integer claimVoucherId;
     private String item;
     private Double amount;
+
+    @TableField("COMMENT")
     private String comment;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getClaimVoucherId() {
-        return claimVoucherId;
-    }
-
-    public void setClaimVoucherId(Integer claimVoucherId) {
-        this.claimVoucherId = claimVoucherId;
-    }
-
-    public String getItem() {
-        return item;
-    }
-
-    public void setItem(String item) {
-        this.item = item;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    @Override
-    public String toString() {
-        return "ClaimVoucherItemsDao{" +
-                "id=" + id +
-                ", claimVoucherId=" + claimVoucherId +
-                ", item='" + item + '\'' +
-                ", amount=" + amount +
-                ", comment='" + comment + '\'' +
-                '}';
-    }
 }

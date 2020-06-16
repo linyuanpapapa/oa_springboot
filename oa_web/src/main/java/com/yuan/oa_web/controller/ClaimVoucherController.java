@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -30,7 +31,8 @@ public class ClaimVoucherController {
     }
 
     @PostMapping("/add")
-    public String add(HttpSession session,ClaimVoucherInfo info){
+    public String add(HttpServletRequest request, ClaimVoucherInfo info){
+        HttpSession session=request.getSession();
         Employee employee=(Employee)session.getAttribute("Employee");
         info.getClaimVoucher().setCreateSn(employee.getSn());
         claimVoucherBiz.save(info.getClaimVoucher(),info.getItems());

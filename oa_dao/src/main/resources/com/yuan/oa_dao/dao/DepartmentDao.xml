@@ -1,24 +1,17 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yuan.oa_dao.dao.DepartmentDao">
-    <resultMap id="department" type="com.yuan.oa_dao.entity.Department">
-        <id property="sn" column="sn" javaType="String"></id>
-        <result property="name" column="name" javaType="String"></result>
-        <result property="address" column="address" javaType="String"></result>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yuan.oa_dao.entity.Department">
+        <result column="sn" property="sn" />
+        <result column="NAME" property="name" />
+        <result column="address" property="address" />
     </resultMap>
-    <insert id="insert" parameterType="com.yuan.oa_dao.entity.Department">
-        insert into department values(#{sn},#{name},#{address})
-    </insert>
-    <update id="update" parameterType="com.yuan.oa_dao.entity.Department">
-        update department set name=#{name},address=#{address} where sn=#{sn}
-    </update>
-    <delete id="delete" parameterType="String">
-        delete from department where sn=#{sn}
-    </delete>
-    <select id="selectOne" parameterType="String" resultMap="department">
-        select * from department where sn=#{sn}
-    </select>
-    <select id="selectAll" resultMap="department">
-        select * from department
-    </select>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        sn, NAME, address
+    </sql>
+
 </mapper>
